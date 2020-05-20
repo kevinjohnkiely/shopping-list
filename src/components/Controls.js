@@ -5,12 +5,21 @@ class Controls extends Component {
     
     state = {
         title: '',
-        num: ''
+        num: '',
+        displayErrorMsg: false
     }
+
+    
 
     formHandler = (event) => {
         event.preventDefault()
-        this.props.addItem(this.state.title, this.state.num)
+        if(this.state.num > 0) {
+            this.props.addItem(this.state.title, this.state.num)
+        }
+        else {
+            alert("Please enter quantity greater than zero!")
+        }
+        
         this.setState({ 
             title: '',
             num: 0 })
@@ -42,6 +51,7 @@ class Controls extends Component {
                         id="num"
                         placeholder="Enter quantity" 
                         name="num"
+                        value={this.state.num}
                         onChange={this.changeHandler}/>
 
                     <button 
@@ -49,6 +59,7 @@ class Controls extends Component {
                         value="Submit"
                         disabled={this.state.title === '' || this.state.num === '' ? true : false}>Add</button>
                 </form>
+                
             </div>
         )
     }
